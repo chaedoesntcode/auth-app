@@ -35,3 +35,21 @@ export const adminMiddleware = asynchHandler(async (req, res) => {
 
     res.status(403).json({ message: "Not authorized" });
 });
+
+export const creatorMiddleware = asynchHandler(async (req, res) => {
+    if((req.user && req.user.role === "creator") && (req.user && req.user.role === "admin")) {
+    next();
+    return;
+    }
+
+    res.status(403).json({ message: "Only creators can do this" });
+});
+
+export const verifiedMiddleware = asynchHandler(async (req, res) => {
+    if(req.user && req.user.isVerified) {
+        next();
+        return;
+    }
+
+    res.status(403).json({ message: "Please verify your email address" });
+});
