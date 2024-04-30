@@ -26,3 +26,12 @@ export const guard = asynchHandler(async (req, res) => {
         res.status(401).json({ message: "Not authorized" })
     }
 });
+
+export const adminMiddleware = asynchHandler(async (req, res) => {
+    if(req.user && req.user.role === "admin") {
+        next();
+        return;
+    }
+
+    res.status(403).json({ message: "Not authorized" });
+});
