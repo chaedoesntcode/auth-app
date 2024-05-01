@@ -5,6 +5,7 @@ import connect from "./src/db/connect.js";
 import cookieParser from "cookie-parser";
 import fs from "node:fs";
 import { error } from "node:console";
+import errorHandler from "./src/utils/errorhandler.js";
 
 dotenv.config();
 
@@ -19,6 +20,8 @@ app.use(cors({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+
+app.use(errorHandler);
 
 const routeFiles = fs.readdirSync("./src/routes");
 routeFiles.forEach((file) => {
