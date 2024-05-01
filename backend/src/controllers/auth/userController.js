@@ -3,6 +3,10 @@ import User from '../../models/auth/UserModel.js';
 import generateToken from '../../utils/generateToken.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import Token from '../../models/auth/Token.js';
+import crypto from 'node:crypto';
+import hashToken from '../../utils/hashToken.js';
+import sendEmail from '../../utils/sendEmail.js';
 
 export const registerUser = asyncHandler(async (req, res) => {
     // Get Data
@@ -168,4 +172,77 @@ export const userLoginStatus = asyncHandler(async (req, res) => {
     } else {
         res.status(401).json(false);
     }
+});
+
+export const verifyEmail = asyncHandler(async (req, res) => {
+    const user = await User.find(req.user._id);
+
+    if(!user) {
+        return res.status(404).json({ message: "User not found" });
+    }
+
+    if(user.isVerified) {
+        return res.status(400).json({ message: "User is verified" });
+    }
+
+    let token = await Token.findOne({ userId: user._id });
+
+    if(token) {
+        await token.deleteOne();
+    }
+
+    const verificationToken = crypto.randomBytes(64).toString("hex") + user._id;
+
+    const hashedToken = await hashToken(verificationToken);
+
+    await new Token({
+        userId: user._id,
+        verificationToken: hashedToken,
+        createdAt: Date.now(),
+        expiresAt: Date.now() + 24 * 60 * 60 * 1000,
+    }).save();
+
+    const verificationLink = `${process.env.CLIENT_URL}/verify-email${verificationToken}`;
+
+    const subject = "Email Verification - AuthApp";
+    const send_to = user.email;
+    const reply_to = "noreply@gmail.com";
+    const template = "emailVerification";
+    const send_from = process.env.USER_EMAIL;
+    const name = user.name;
+    const link = verificationLink;
+
+    try {
+        await sendEmail(subject, send_to, send_from, reply_to, template, name, link);
+        return res.status(200).json({ message: "Email sent" });
+    } catch (error) {
+        console.log("Error sending emil: ", error);
+        return res.status(500).json({ message: "Email could not be sent" });
+    }
+});
+
+export const verifyUser = asyncHandler(async (req, res) => {
+    const { verificationToken } = req.params;
+
+    if(!verificationToken) {
+        return res.status(400).json({ message: "Invalid token" });
+    }
+
+    const hashedToken = hashToken(verificationToken);
+
+    const userToken = await Token.findOne({ verificationToken: hashToken, expiresAt: {$gt: Date.now()},  });
+
+    if(!userToken) {
+        return res.status(400).json({ message: "Invalid or expired token." });
+    }
+
+    const user = await User.findById(userToken.userId);
+
+    if(user.isVerified) {
+        return res.status(400).json({ message: "User is already verified." });
+    }
+
+    user.isVerified = true;
+    await user.save();
+    res.status(200).json({ message: "User verified succesfully." });
 });
