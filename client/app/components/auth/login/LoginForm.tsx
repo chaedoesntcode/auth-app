@@ -31,9 +31,9 @@ function LoginForm() {
             <div className="flex flex-col relative">
                 <label htmlFor="password" className='mb-1 text-[#414141] font-medium'>Password</label>
                 <input type={showPassword ? "text" : "password"}  id="password" name="password" value={password} onChange={(e) => handleUserInput("password")(e)} className='p-2 border-[2px] outline-[#1868db] text-gray-800 rounded-md' placeholder='*********'/>
-                <button type="button" className='absolute px-3 py-1 right-2 top-[46%] text-[18] opacity-45 bg-[#e4e4e4] hover:opacity-60 transition-opacity rounded-md'>
+                <button type="button" onClick={toggler} className='absolute px-3 py-1 right-2 top-[46%] text-[18] opacity-45 bg-[#e4e4e4] hover:opacity-60 transition-opacity rounded-md'>
                     { 
-                        showPassword ? (<i className='fas fa-eye-slash' onClick={toggler}></i>)  : (<i className='fas fa-eye' onClick={toggler}></i>) 
+                        showPassword ? (<i className='fas fa-eye-slash'></i>)  : (<i className='fas fa-eye' onClick={toggler}></i>) 
 
 
                     }
