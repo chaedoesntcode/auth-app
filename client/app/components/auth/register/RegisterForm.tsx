@@ -52,7 +52,7 @@ function RegisterForm() {
             </div>
         </div>
     </form>
-    <p className='mt-4 px-[2rem] text-center text-[#999] text-[14px]'>
+    <p className='mt-4 px-[2rem] text-center text-[#545454] text-[14px]'>
     Already have an account? {" "}
     <Link href='/login' className="text-[#1868db] font-medium">Sign in</Link>
 </p>

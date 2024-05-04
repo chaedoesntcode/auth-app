@@ -8,10 +8,10 @@ export default function Home() {
   const name = "Jane Doe";
   const bio = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna";
   return (
-    <main className="main-page w-full pt-[80px]">
-      <div className="grid grid-flow-col auto-cols-max gap-2 mx-auto justify-items-center align-items-stretch content-center justify-center">
-          {/* START: Sidebar */}
-       <Sidebar />
+    <main className="main-page w-full pt-[108px] md:pt-[80px]">
+      <div className="grid grid-flow-row md:grid-flow-col auto-cols-fr md:auto-cols-max gap-2 mx-auto h-full justify-items-center align-items-stretch content-center justify-center">
+        {/* START: Sidebar */}
+            <Sidebar />
         {/* END: Sidebar */}
         {/* START: Profile */}
         <section className='w-full max-w-[400px]'>

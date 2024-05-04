@@ -30,7 +30,7 @@ const pathname = usePathname()
             </ul>
       </nav>
       </header> */}
-      <div className='main-page w-full flex flex-col justify-center items-center'>
+      <div className='main-page w-full flex flex-col justify-center items-center  pt-[108px] md:pt-[80px]'>
       
       <RegisterForm />
   </div>
