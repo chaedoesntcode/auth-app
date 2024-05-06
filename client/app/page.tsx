@@ -10,7 +10,7 @@ export default function Home() {
     const { user, logoutUser, handleUserInput, userState, updateUser, loading } = useUserContext();
     const name = user.name;
     const bio = user.bio;
-    const photo = user.photo;
+    const email = user.email;
 
     const [isOpen, setIsOpen] = useState(false);
 
@@ -20,12 +20,14 @@ export default function Home() {
 
   return (
     <main className="main-page w-full pt-[108px] md:pt-[80px]">
-      <div className="grid grid-flow-row md:grid-flow-col auto-cols-fr md:auto-cols-max gap-2 mx-auto h-full justify-center items-center content-center">
-        {/* START: Profile */}
-        <section className='w-full max-w-[400px] h-full rounded-lg'>
-            <div className='px-10 py-14 rounded-lg relative bg-white w-full text-center flex flex-col items-center justify-center'>
-              <img src={photo} alt={name} className="rounded-full mb-4 h-16" />
-              <h1 className='mb-2  text-[#414141] text-[1.35rem] font-medium'>{ name }</h1>
+              {/* START: Profile */}
+              <section className='w-full max-w-[400px] mx-auto h-full rounded-lg'>
+            <div className='px-10 py-14 rounded-lg relative bg-white w-full flex flex-col justify-center gap-y-4'>
+              <div className="mb-2">
+                <h1 className='text-[1.35rem] font-medium'>Welcome {" "}<span className="text-[#1868db]">{ name }</span></h1>
+                <p className="text-sm text-[#656565]">{ email }</p>
+              </div>
+              
               <p className="text-[#656565]">{ bio }</p>
               {isOpen && <form className="bg-white shadow-sm px-4 py-2 rounded-lg absolute w-full h-full flex flex-col items-center justify-center top-0 left-0">
                     <div className="flex flex-col w-full">
@@ -57,7 +59,7 @@ export default function Home() {
             </div>
          </section>
         {/* END: Profile */}
-      </div>
+
     </main>
   );
 }
