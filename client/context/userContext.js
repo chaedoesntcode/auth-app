@@ -43,7 +43,7 @@ export const UserContextProvider = ({children}) => {
             router.push('/login');
         } catch (error) {
             toast.error("Error registering.");
-            console.log("Error registering: ", error);
+            // console.log("Error registering: ", error);
         }
     };
 
@@ -67,7 +67,7 @@ export const UserContextProvider = ({children}) => {
                 withCredentials: true,
             });
 
-            toast.success("User logged in successfully");
+            // toast.success("User logged in successfully");
 
             setUser(res.data);
 
@@ -89,7 +89,7 @@ export const UserContextProvider = ({children}) => {
                 withCredentials: true,
             });
 
-            toast.success("User logged out successfully.");
+            // toast.success("User logged out successfully.");
             router.push("/login");
         } catch (error) {
             console.log("Error logging out user: ", error);
@@ -104,13 +104,6 @@ export const UserContextProvider = ({children}) => {
             });
 
             setUser(res.data);
-
-            // setUser((prevState) => {
-            //     return {
-            //         ...prevState,
-            //         ...res.data,
-            //     }
-            // });
 
             setLoading(false);
         } catch (error) {

@@ -24,7 +24,7 @@ export default function Home() {
               <section className='w-[90%] md:max-w-[400px] mx-auto h-full rounded-lg'>
             <div className='px-10 py-14 rounded-lg relative bg-white w-full flex flex-col justify-center gap-y-4'>
               <div className="mb-2">
-                <h1 className='text-[1.35rem] font-medium'>Welcome {" "}<span className="text-[#1868db]">{ name }</span></h1>
+                <h1 className='text-[1.35rem] font-medium'>Welcome {" "}<span className="text-[#1868db] font-semibold">{ name }</span></h1>
                 <p className="text-sm text-[#656565] opacity-90">{ email }</p>
               </div>
               

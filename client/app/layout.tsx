@@ -24,7 +24,7 @@ export default function RootLayout({
       </head>
       <body className={inter.className}>
         <Header />
-        <Toaster position="top-center" />
+        <Toaster position="top-right" />
         <UserProvider>
         {children}
         </UserProvider>
