@@ -19,7 +19,7 @@ export default function Home() {
     };
 
   return (
-    <main className="main-page w-full pt-[108px] md:pt-[80px]">
+    <main className="main-page w-full pt-[108px] lg:pt-[80px]">
               {/* START: Profile */}
               <section className='w-full max-w-[400px] mx-auto h-full rounded-lg'>
             <div className='px-10 py-14 rounded-lg relative bg-white w-full flex flex-col justify-center gap-y-4'>

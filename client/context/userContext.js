@@ -23,8 +23,10 @@ export const UserContextProvider = ({children}) => {
     const registerUser = async (e) => {
         e.preventDefault();
 
-        if(!userState.email.includes("@") || !userState.password || userState.password.length < 6) {
-            toast.error("Enter a valid email and password.");
+        const containsNumber = /\d/.test(userState.password);
+
+        if(!userState.email.includes("@") || !userState.password || userState.password.length < 6 || !containsNumber) {
+            toast.error("Enter a valid email and password. The password must be at least 6 characters long and contain at least one number.");
             return
         }
 
@@ -41,6 +43,7 @@ export const UserContextProvider = ({children}) => {
             router.push('/login');
         } catch (error) {
             toast.error("Error registering.");
+            console.log("Error registering: ", error);
         }
     };
 
@@ -143,26 +146,6 @@ export const UserContextProvider = ({children}) => {
           }
     };
 
-    // const userLoginStatus = async () => {
-    //     let loggedIn = false;
-
-    //     try {
-    //         const res = await axios.get(`${serverUrl}/api/v1/login-status`, {
-    //             withCredentials: true,
-    //         });
-
-    //         loggedIn = !!res.data;
-    //         if(!loggedIn) {
-    //             router.push("/login");
-    //         }
-    //         // setLoading(false);
-    //     } catch (error) {
-    //         console.log("Error getting user login status: ", error);
-    //         router.push("/login");
-    //     }
-
-    //     return loggedIn;
-    // };
     const getLoginStatus = async () => {
         try {
             const res = await axios.get(`${serverUrl}/api/v1/login-status`, {
@@ -183,9 +166,9 @@ export const UserContextProvider = ({children}) => {
         }
     };
 
-    useEffect(() => {
-        getLoginStatus();
-    }, []);
+    // useEffect(() => {
+    //     getLoginStatus();
+    // }, []);
 
     return(
         <UserContext.Provider value={{

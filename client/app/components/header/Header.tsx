@@ -7,7 +7,7 @@ function Header() {
 
   return (
     <header className='bg-[#FAFAFA] w-screen h-auto py-4 px-10 md:px-5 absolute'>
-            <div className='flex justify-between items-center flex-col md:flex-row gap-y-2 md:gap-y-0'>
+            <div className='flex justify-between items-center flex-col lg:flex-row gap-y-2 md:gap-y-0'>
                 <div>
                     <Image priority={true} src={Logo} width={200} height={50} className='h-10 object-contain' alt="logo" />
                 </div>
