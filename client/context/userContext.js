@@ -18,7 +18,7 @@ export const UserContextProvider = ({children}) => {
         password: "",
     });
 
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
 
     const registerUser = async (e) => {
         e.preventDefault();
@@ -66,6 +66,8 @@ export const UserContextProvider = ({children}) => {
 
             toast.success("User logged in successfully");
 
+            setUser(res.data);
+
             setUserState({
                 email: "",
                 password: "",
@@ -91,29 +93,98 @@ export const UserContextProvider = ({children}) => {
         }
     };
 
-    const userLoginStatus = async () => {
-        let loggedIn = false;
+    const getUser = async () => {
+        setLoading(true);
+        try {
+            const res = await axios.get(`${serverUrl}/api/v1/user`, {
+                withCredentials: true,   
+            });
 
+            setUser(res.data);
+
+            // setUser((prevState) => {
+            //     return {
+            //         ...prevState,
+            //         ...res.data,
+            //     }
+            // });
+
+            setLoading(false);
+        } catch (error) {
+            setLoading(false);
+            toast.error(error.response.data.message);
+        }
+    };
+
+    const updateUser = async (e, data) => {
+        e.preventDefault();
+        setLoading(true);
+
+        try {
+            const res = await axios.patch(`${serverUrl}/api/v1/user`, data, {
+                withCredentials: true,
+            });
+
+            if(res && res.data) {
+                setUser((prevState) => {
+                    return {
+                        ...prevState,
+                        ...res.data,
+                    };
+                });
+            }
+
+            toast.success("Updated successfully");
+        } catch (error) {
+            console.log("Error updating user bio", error);
+            toast.error("Error updating bio.");        
+        } finally {
+            setLoading(false);
+          }
+    };
+
+    // const userLoginStatus = async () => {
+    //     let loggedIn = false;
+
+    //     try {
+    //         const res = await axios.get(`${serverUrl}/api/v1/login-status`, {
+    //             withCredentials: true,
+    //         });
+
+    //         loggedIn = !!res.data;
+    //         if(!loggedIn) {
+    //             router.push("/login");
+    //         }
+    //         // setLoading(false);
+    //     } catch (error) {
+    //         console.log("Error getting user login status: ", error);
+    //         router.push("/login");
+    //     }
+
+    //     return loggedIn;
+    // };
+    const getLoginStatus = async () => {
         try {
             const res = await axios.get(`${serverUrl}/api/v1/login-status`, {
                 withCredentials: true,
             });
+            
 
-            loggedIn = !!res.data;
-            setLoading(false);
-
-            if(!loggedIn) {
+            if(!res.data) {
                 router.push("/login");
-            }
+            }  
+
+            return !!res.data
         } catch (error) {
             console.log("Error getting user login status: ", error);
+            router.push("/login");
+            console.log(res);  
+            return false;
         }
-
-        return loggedIn;
     };
 
     useEffect(() => {
-        userLoginStatus();
+        getLoginStatus();
     }, []);
 
     return(
@@ -122,8 +193,10 @@ export const UserContextProvider = ({children}) => {
             userState,
             handleUserInput,
             loginUser,
-            userLoginStatus,
             logoutUser,
+            user,
+            updateUser,
+            getLoginStatus,
         }}>
             {children}
         </UserContext.Provider>

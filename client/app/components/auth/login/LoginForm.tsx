@@ -39,9 +39,9 @@ function LoginForm() {
                     }
                 </button>
             </div>
-            <div className='mt-2 flex justify-end'>
+            {/* <div className='mt-2 flex justify-end'>
                 <Link href='/forgot-password' className="text-[#1868db] text-sm font-medium">Forgot password?</Link>
-            </div>
+            </div> */}
             <div className="flex">
                 <button type='submit' 
                 onClick={loginUser}
