@@ -19,13 +19,13 @@ export default function Home() {
     };
 
   return (
-    <main className="main-page w-full pt-[108px] lg:pt-[80px]">
+    <main className="main-page w-full pt-[156px] lg:pt-[128px]">
               {/* START: Profile */}
-              <section className='w-full max-w-[400px] mx-auto h-full rounded-lg'>
+              <section className='w-[90%] md:max-w-[400px] mx-auto h-full rounded-lg'>
             <div className='px-10 py-14 rounded-lg relative bg-white w-full flex flex-col justify-center gap-y-4'>
               <div className="mb-2">
                 <h1 className='text-[1.35rem] font-medium'>Welcome {" "}<span className="text-[#1868db]">{ name }</span></h1>
-                <p className="text-sm text-[#656565]">{ email }</p>
+                <p className="text-sm text-[#656565] opacity-90">{ email }</p>
               </div>
               
               <p className="text-[#656565]">{ bio }</p>
@@ -45,7 +45,7 @@ export default function Home() {
                       Save
                     </button>
                 </form>}
-              <div className="flex w-full gap-2 justify-around mt-6">
+              <div className="flex flex-col lg:flex-row w-full gap-2 justify-around mt-6">
                 <button type='button' className='px-6 py-3 bg-[#FAFAFA] text-[#414141] rounded-lg'
           onClick={toggle} 
         > <i className="fa fa-pen mr-2"></i> Update Bio
