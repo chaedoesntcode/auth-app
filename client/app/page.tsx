@@ -48,7 +48,7 @@ export default function Home() {
               <div className="flex flex-col lg:flex-row w-full gap-2 justify-around mt-6">
                 <button type='button' className='px-6 py-3 bg-[#FAFAFA] text-[#414141] rounded-lg'
           onClick={toggle} 
-        > <i className="fa fa-pen mr-2"></i> Update Bio
+        > <i className="fa fa-pen mr-2"></i> Update bio
                 </button>
                 <button type='submit' className='px-6 py-3 bg-[#1868db] text-white rounded-lg'
           onClick={logoutUser}

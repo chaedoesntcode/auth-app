@@ -22,7 +22,7 @@ function LoginForm() {
             <h1 className='mb-2 text-center text-[#282828] text-[1.35rem] font-medium'>Sign in to your account</h1>
             <div className="flex flex-col mb-4">
                 <label htmlFor="email" className='mb-1 text-[#414141] font-medium'>Email</label>
-                <input type="email" id="email" name="email" value={email} onChange={(e) => handleUserInput("email")(e)} className='p-2 border-[2px] outline-[#1868db] text-gray-800 rounded-md' placeholder='janedoe@gmail.com'/>
+                <input type="email" id="email" name="email" value={email} onChange={(e) => handleUserInput("email")(e)} className='p-2 border-[2px] outline-[#1868db] text-gray-800 rounded-md' placeholder='example@domain.com'/>
             </div>
             <div className="flex flex-col relative">
                 <label htmlFor="password" className='mb-1 text-[#414141] font-medium'>Password</label>
